@@ -1,55 +1,35 @@
 # Blutube (PHP + MySQL)
 
-YouTube-style video platform for **InfinityFree** (or any PHP + MySQL host).
+YouTube-style site for **InfinityFree**.
 
-## Features
+## Fix "site doesn't open"
 
-- User accounts: register, login, logout
-- Roles: `user` and `admin`
-- Videos by public MP4 URL (no file upload needed)
-- Watch page: player, views, likes, subscribe, comments
-- Search, Trending, Subscriptions, History, Channel pages
-- Studio: publish / delete your videos
-- Admin panel: stats, ban/promote users, hide/delete videos
-- CSRF protection, password hashing, prepared statements
+1. Upload **all** files into `htdocs` (not a nested folder only).
+2. Open **`https://YOUR-SITE/check.php`** — this shows what is broken.
+3. In phpMyAdmin → database `if0_43009643_blutube` → SQL → paste **`install.sql`** → Go.
+4. Reload `check.php` until everything is green.
+5. Open `index.php`.
 
-## InfinityFree setup
+## Default login
 
-### 1. Create the database
+- Username: `admin`
+- Password: `admin123`
 
-In InfinityFree control panel you already have:
+## Files that must exist
 
-| Setting   | Value                      |
-|-----------|----------------------------|
-| Host      | `sql307.infinityfree.com`  |
-| Port      | `3306`                     |
-| Database  | `if0_43009643_blutube`     |
-| Username  | `if0_43009643`             |
-| Password  | *(your password)*          |
+```
+htdocs/
+  check.php          ← open this first
+  config.php
+  index.php
+  install.sql
+  login.php, register.php, watch.php, studio.php, ...
+  includes/          (db.php, auth.php, functions.php, header.php, footer.php)
+  api/               (like.php, subscribe.php, comment.php)
+  admin/             (index.php, users.php, videos.php)
+  assets/            (style.css, app.js)
+```
 
-Open **phpMyAdmin** → select database `if0_43009643_blutube` → **SQL** tab → paste the entire contents of `install.sql` → Go.
+## Config
 
-### 2. Upload the site
-
-Upload **all files** from this folder into your site’s `htdocs` (or public_html) directory.
-
-### 3. Config
-
-`config.php` is already filled with your InfinityFree credentials.
-
-### 4. Default admin
-
-After running `install.sql`:
-
-- **Username:** `admin`
-- **Password:** `admin123`
-
-Log in immediately and change the password.
-
-### 5. Test
-
-1. Open your site URL
-2. Log in as admin
-3. Home should show seed videos
-4. Studio → paste any public `https://...mp4` URL
-5. Admin → manage users / videos
+`config.php` already has your InfinityFree MySQL settings.
